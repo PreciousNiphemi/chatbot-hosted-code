@@ -12,34 +12,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         .icon-size {
-            height: 50px;
-            width: 30px;
+            height: 80px;
+            width: 60px;
         }
 
-        @media (max-width: 768px) {
-            .icon-size {
-                height: 80px; /* Increase height for smaller screens */
-                width: 60px; /* Increase width for smaller screens */
-            }
-        }
+       
 
         /* Styles for deep-chat-container */
         .deep-chat-container {
             display: none; /* Initially hide deep-chat */
             position: fixed;
-            bottom: 80px; /* Adjust as needed to avoid overlapping with floating chat icon */
+            bottom: 120px;
+          
             right: 20px;
             z-index: 1001; /* Ensure deep-chat is on top of floating chat icon */
             background-color: #f7f7f7;
             border-radius: 8px;
         }
 
-        /* Media query for smaller screens (phones) */
-        @media (max-width: 768px) {
-            .deep-chat-container {
-                bottom: 120px; /* Adjust position for smaller screens */
-            }
-        }
+       
     `;
   document.head.appendChild(style);
 
