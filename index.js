@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
             display: none; /* Initially hide deep-chat */
             position: fixed;
             bottom: 120px;
-          
             right: 20px;
             z-index: 1001; /* Ensure deep-chat is on top of floating chat icon */
             background-color: #f7f7f7;
@@ -104,15 +103,30 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       deepChatContainer.appendChild(elementRef);
 
-      elementRef.initialMessages = [
-        { role: "user", text: "Hey, how are you today?" },
-        { role: "ai", text: "I am doing very well!" },
-      ];
+      // elementRef.initialMessages = [
+      //   { role: "user", text: "Hey, how are you today?" },
+      //   { role: "ai", text: "I am doing very well!" },
+      // ];
+
+      elementRef.setAttribute(
+        "request",
+        JSON.stringify({
+          url: "http://localhost:5000/ask",
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        })
+      );
+      elementRef.setAttribute(
+        "requestBodyLimits",
+        JSON.stringify({
+          maxMessages: 0,
+        })
+      );
 
       elementRef.setAttribute(
         "introMessage",
         JSON.stringify({
-          text: "JavaScript demo for the Deep Chat component.",
+          text: "Hello... How can I help you today?",
         })
       );
 
