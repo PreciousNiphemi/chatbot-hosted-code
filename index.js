@@ -1,4 +1,34 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Define intro texts
+  const introTexts = {
+    gp: "Welcome to the General Partnership chatbot! You can ask me questions about what we do, our team members and more. To start just send a message below!",
+    pinnacle:
+      "Welcome to the Pinnacle Vet chatbot! You can ask me questions about the services we offer, our hours, book an appointment, and more. To start just send a message below!",
+    hillside:
+      "Welcome to the Hillside Vet chatbot! You can ask me questions about the services we offer, our hours, book an appointment, and more. To start just send a message below!",
+    happy:
+      "Welcome to the Happy Pet Vet chatbot! You can ask me questions about the services we offer, our hours, book an appointment, and more. To start just send a message below!",
+    handyman:
+      "Welcome to the Handyman Connection chatbot! You can ask me questions about the services we offer, our hours, book an appointment, and more. To start just send a message below!",
+  };
+
+  // Check query params for company_id and save it in cookies
+  const urlParams = new URLSearchParams(window.location.search);
+  const companyId = urlParams.get("company_id");
+  if (companyId) {
+    console.log("THE COMPANY ID:", companyId);
+    document.cookie = `company_id=${companyId}; path=/`;
+  }
+
+  // Get company_id from cookies
+  const cookies = document.cookie.split("; ");
+  console.log("COOKIES", cookies);
+  const companyCookie = cookies.find((row) => row.startsWith("company_id="));
+  const savedCompanyId = companyCookie ? companyCookie.split("=")[1] : null;
+
+  // Log the company_id cookie
+  console.log("company_id cookie:", savedCompanyId);
+
   // Inject styles for floating chat icon
   const style = document.createElement("style");
   style.innerHTML = `
@@ -111,11 +141,13 @@ document.addEventListener("DOMContentLoaded", function () {
       elementRef.setAttribute(
         "request",
         JSON.stringify({
-          url: "https://chatbot-backend-dfii.onrender.com/ask",
+          url: "http://localhost:5000/ask",
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          additionalBodyProps: { company_id: savedCompanyId },
         })
       );
+
       elementRef.setAttribute(
         "requestBodyLimits",
         JSON.stringify({
@@ -126,7 +158,8 @@ document.addEventListener("DOMContentLoaded", function () {
       elementRef.setAttribute(
         "introMessage",
         JSON.stringify({
-          text: "Hello... How can I help you today?",
+          text:
+            introTexts[savedCompanyId] || "Hello... How can I help you today?",
         })
       );
 
