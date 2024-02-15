@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
       elementRef.setAttribute(
         "request",
         JSON.stringify({
-          url: "http://localhost:5000/ask",
+          url: "https://chatbot-backend-dfii.onrender.com/ask",
           method: "POST",
           headers: { "Content-Type": "application/json" },
           additionalBodyProps: { company_id: savedCompanyId },
