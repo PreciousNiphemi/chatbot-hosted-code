@@ -1,15 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Define intro texts
   const introTexts = {
-    gp: "Welcome to the General Partnership chatbot! You can ask me questions about what we do, our team members and more. To start just send a message below!",
-    pinnacle:
-      "Welcome to the Pinnacle Vet chatbot! You can ask me questions about the services we offer, our hours, book an appointment, and more. To start just send a message below!",
-    hillside:
-      "Welcome to the Hillside Vet chatbot! You can ask me questions about the services we offer, our hours, book an appointment, and more. To start just send a message below!",
-    happy:
-      "Welcome to the Happy Pet Vet chatbot! You can ask me questions about the services we offer, our hours, book an appointment, and more. To start just send a message below!",
-    handyman:
-      "Welcome to the Handyman Connection chatbot! You can ask me questions about the services we offer, our hours, book an appointment, and more. To start just send a message below!",
+    gp: `<p>Welcome to the General Partnership chatbot!<br/>You can ask me questions about what we do, our team members and more.<br/>To start just send a message below!</p>`,
+    pinnacle: `<p>Welcome to the Pinnacle Vet chatbot!<br/>You can ask me questions about the services we offer, our hours, book an appointment, and more.<br/>To start just send a message below!</p>`,
+    hillside: `<p>Welcome to the Hillside Vet chatbot!<br/>You can ask me questions about the services we offer, our hours, book an appointment, and more.<br/> To start just send a message below!</p>`,
+    happy: `<p>Welcome to the Happy Pet Vet chatbot!<br/>You can ask me questions about the services we offer, our hours, book an appointment, and more.<br/>To start just send a message below!</p>`,
+    handyman: `<p>Welcome to the Handyman Connection chatbot!<br/>You can ask me questions about the services we offer, our hours, book an appointment, and more.<br/>To start just send a message below!</p>`,
   };
 
   // Check query params for company_id and save it in cookies
@@ -73,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const floatingChatIcon = document.createElement("div");
     floatingChatIcon.classList.add("floating-chat-icon");
     floatingChatIcon.innerHTML =
-      '<ion-icon name="chatbubble-ellipses-outline" class="icon-size"></ion-icon>';
+      '<img src="images/chat-icon.svg" width="50" height="50">';
     document.body.appendChild(floatingChatIcon);
 
     // Define the toggleChat function
@@ -103,12 +99,39 @@ document.addEventListener("DOMContentLoaded", function () {
       elementRef.setAttribute("demo", "true");
       elementRef.setAttribute(
         "textInput",
-        '{"placeholder":{"text": "Welcome to the demo!"}}'
+        '{"placeholder":{"text": "Welcome!"}}'
       );
       elementRef.setAttribute(
         "style",
         "background-color: #f7f7f7; border-radius: 8px"
       );
+
+      elementRef.setAttribute(
+        "messageStyles",
+        `
+      {
+        "default": {
+          "intro": {
+            "bubble": {"backgroundColor": "#EDEDED", "color": "#333333", "borderRadius":"0px", "borderBottomLeftRadius": "16px", "borderBottomRightRadius": "16px","borderTopRightRadius": "16px", "whiteSpace": "pre-wrap", "letterSpacing":"3rem"}
+          },
+          "user": {
+            "bubble": {
+              "background": "#0070CC",
+              "color":"#FFFFFF",
+              "borderRadius":"0px",
+              "borderTopLeftRadius": "16px",
+              "borderBottomLeftRadius": "16px",
+              "borderBottomRightRadius": "16px"
+            }
+          },
+          "ai": {"bubble": {"backgroundColor": "#EDEDED", "color": "#333333", "borderRadius":"0px", "borderBottomLeftRadius": "16px", "borderBottomRightRadius": "16px","borderTopRightRadius": "16px"}}
+  
+
+        }
+      }
+      `
+      );
+
       elementRef.setAttribute(
         "submitButtonStyles",
         `{
@@ -158,8 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
       elementRef.setAttribute(
         "introMessage",
         JSON.stringify({
-          text:
-            introTexts[savedCompanyId] || "Hello... How can I help you today?",
+          html: introTexts[savedCompanyId],
         })
       );
 
